@@ -1,0 +1,49 @@
+<div class="card mr-5">
+  <div class="card-body">
+    <%= form_with(model: category, local: true) do |form| %>
+      <% if category.errors.any? %>
+        <div class="form-group alert au-alert-danger alert-dismissible fade show au-alert au-alert--70per">
+          <%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:
+          <ul>
+            <% category.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="card-title my-3">
+          <h3 class="text-left title-2"><%= title %></h3>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :title, class: "control-label mb-1" %>
+        <%= form.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :description, class: "control-label mb-1" %>
+        <%= form.text_area :description, class: "form-control ckeditor" %>
+      </div>
+    
+  <div class="field">
+    <%= form.label :picture %>
+    <%= form.file_field :image_url, direct_upload: true%>
+  </div>
+
+      <button type="submit" class="btn btn-lg btn-info">Submit</button>
+      
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    if ($('textarea').length > 0) {
+      var data = $('.ckeditor');
+      $.each(data, function(i) {
+        CKEDITOR.replace(data[i].id)
+      });
+    }
+  });
+</script>
